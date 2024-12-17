@@ -1,13 +1,21 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-const AdminSchema = mongoose.Schema({
+const adminSchema = mongoose.Schema({
     email:{
         type:String,
         required: true
     },
     username:{
         type:String,
-        required:true
-    }
+        required:true,
+        unique:true
+    },
+    password:{
+        type:String,
+        required:true,
+    },
+    
 },{timestamps: true})
+
+const adminModel = mongoose.model('Admin', adminSchema)
