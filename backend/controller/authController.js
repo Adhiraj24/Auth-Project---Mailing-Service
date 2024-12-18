@@ -1,5 +1,3 @@
-import express from 'express'
-
 import bcryptjs from 'bcryptjs'
 import User from '../models/userModel.js'
 import { generateTokenAndSetCookie } from '../utils/generateTokenAndSetCookie.js'
@@ -54,20 +52,22 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => { 
     const { email, password } = req.body; 
     console.log(email, password); 
+    
     if (!email || !password) { 
         return res.status(400).json({ success: false, message: "All fields are required" }); 
     } 
+
     try { 
-    const user = await User.findOne({ email }); 
-    if (!user) { 
-        return res.status(404).json({ success: false, message: "User not found" }); 
-    } 
-    const isMatch = await bcryptjs.compare(password, user.password); 
-    if (isMatch) { 
-        return res.status(200).json({ success: true, message: "User logged in successfully" }); 
-    } 
-    
-    return res.status(401).json({ success: false, message: "Invalid credentials" }); 
+        const user = await User.findOne({ email }); 
+        if (!user) { 
+            return res.status(404).json({ success: false, message: "User not found" }); 
+        } 
+        const isMatch = await bcryptjs.compare(password, user.password); 
+        if (isMatch) { 
+            return res.status(200).json({ success: true, message: "User logged in successfully" }); 
+        } 
+        
+        return res.status(401).json({ success: false, message: "Invalid credentials" }); 
 } catch (error) { 
     console.error(error); 
     return res.status(500).json({ success: false, message: "Server error" }); 
