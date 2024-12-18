@@ -9,7 +9,7 @@ const connectDb = async () => {
 
     await mongoose.connect(mongoURI)
         .then(() => console.log("MongoDB connected successfully !!"))
-        .catch(err => console.log("Error in connecting to MongoDB:", err));
+        .catch(err => console.log("Error in connecting to your database MongoDB:", err));
 };
 
 export default connectDb
