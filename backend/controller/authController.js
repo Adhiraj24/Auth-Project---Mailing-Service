@@ -68,11 +68,13 @@ export const login = async (req, res) => {
         } 
         
         return res.status(401).json({ success: false, message: "Invalid credentials" }); 
+
 } catch (error) { 
     console.error(error); 
     return res.status(500).json({ success: false, message: "Server error" }); 
 }};
 
 export const logout = async (req, res) => {
-    res.send("login route")
+    res.cookie('token', "", {maxAge: 0} )
+    res.status(200).send('Logged out successfully');
 }
